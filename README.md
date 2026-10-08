@@ -172,3 +172,41 @@ Express Backend
                       │
                       ▼
                   Recipient
+
+## Current Project Status
+
+ReachInbox is currently under active development.
+
+The following features are implemented:
+
+- Google OAuth 2.0 authentication
+- JWT-based authentication with HTTP-only cookies
+- Gmail API integration
+- Dynamic per-user Gmail sending
+- Email scheduling
+- CSV recipient upload
+- BullMQ background job processing
+- Redis-based job queue
+- PostgreSQL database integration
+- Email status tracking
+- Rate limiting and automatic job rescheduling
+- Idempotency protection
+- Elasticsearch email search
+- Sender management
+- Slack integration
+- Bull Board queue monitoring
+- Responsive React dashboard
+
+The project is currently configured for local development and testing.
+
+### Current Environment
+
+- Frontend: React + Vite
+- Backend: Node.js + Express + TypeScript
+- Database: PostgreSQL
+- Queue: BullMQ + Redis
+- Search: Elasticsearch
+- Authentication: Google OAuth 2.0 + JWT
+- Email Delivery: Gmail API
+
+Production deployment would require additional configuration for production infrastructure, environment variables, Google OAuth production credentials, monitoring, testing, and deployment services.
