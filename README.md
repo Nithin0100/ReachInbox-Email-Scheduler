@@ -138,8 +138,7 @@ ReachInbox-Email-Scheduler/
 │   └── tsconfig.json
 │
 └── README.md
-
-## How the Project Works
+```
 
 ReachInbox follows a full-stack asynchronous email scheduling architecture. The frontend handles user interaction, the backend manages authentication and email scheduling, PostgreSQL stores application data, Redis and BullMQ handle background jobs, and the email worker sends messages through the Gmail API.
 
@@ -172,23 +171,38 @@ Express Backend
                       │
                       ▼
                   Recipient
+```
 
 ## Current Project Status
 
 ReachInbox is currently under active development.
 
-The core email scheduling and delivery workflow is implemented, including Google OAuth authentication, Gmail API integration, email scheduling, CSV recipient upload, BullMQ background processing, Redis queues, PostgreSQL storage, Elasticsearch search, rate limiting, idempotency protection, sender management, and Slack integration.
+The core email scheduling and delivery workflow is implemented, including:
 
-The project is currently configured for local development and testing. Production deployment would require additional infrastructure, production environment variables, Google OAuth production configuration, testing, monitoring, and deployment setup.
+- Google OAuth 2.0 authentication
+- Gmail API integration
+- Dynamic per-user Gmail sending
+- Email scheduling
+- CSV recipient upload
+- BullMQ background processing
+- Redis-based job queue
+- PostgreSQL storage
+- Elasticsearch search
+- Rate limiting and automatic rescheduling
+- Idempotency protection
+- Sender management
+- Slack integration
+- Email status tracking
+- Responsive React dashboard
 
 ### Current Environment
 
-- Frontend: React + Vite
-- Backend: Node.js + Express + TypeScript
-- Database: PostgreSQL
-- Queue: BullMQ + Redis
-- Search: Elasticsearch
-- Authentication: Google OAuth 2.0 + JWT
-- Email Delivery: Gmail API
+- **Frontend:** React + Vite
+- **Backend:** Node.js + Express + TypeScript
+- **Database:** PostgreSQL
+- **Queue:** BullMQ + Redis
+- **Search:** Elasticsearch
+- **Authentication:** Google OAuth 2.0 + JWT
+- **Email Delivery:** Gmail API
 
-Production deployment would require additional configuration for production infrastructure, environment variables, Google OAuth production credentials, monitoring, testing, and deployment services.
+The project is currently configured for local development and testing. Production deployment would require production infrastructure, secure environment variables, Google OAuth production configuration, automated testing, monitoring, and deployment setup.
