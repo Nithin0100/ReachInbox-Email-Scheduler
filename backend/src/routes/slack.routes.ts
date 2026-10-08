@@ -1,0 +1,1 @@
+import {Router} from "express";import {authMiddleware} from "../middleware/auth.middleware";import {connectSlack,slackCallback,disconnectSlackController} from "../controllers/slack.controller";const r=Router();r.get("/connect",authMiddleware,connectSlack);r.get("/callback",slackCallback);r.post("/disconnect",authMiddleware,disconnectSlackController);export default r;

@@ -1,0 +1,6 @@
+import { redisConnection } from "../config/redis";
+const LUA=`local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],3700); end; if n>tonumber(ARGV[1]) then redis.call('DECR',KEYS[1]); return 0; end; return n;`;
+export const consumeHourlySlot=async(senderId:string,limit:number)=>{const d=new Date();const key=`rate:${senderId}:${d.toISOString().slice(0,13)}`;const result=await redisConnection.eval(LUA,1,key,limit);const allowed=Number(result)===1||Number(result)>0;const next=new Date(d);next.setUTCMinutes(0,0,0);next.setUTCHours(next.getUTCHours()+1);return {allowed,retryAt:next};};
+const SLOT_LUA=`local now=tonumber(ARGV[1]); local delay=tonumber(ARGV[2]); local last=tonumber(redis.call('GET',KEYS[1]) or '0'); local next=math.max(now,last+delay); redis.call('SET',KEYS[1],next,'PX',86400000); return next;`;
+export const reserveSendSlot=async(senderId:string,delay:number)=>{const next=Number(await redisConnection.eval(SLOT_LUA,1,`send-slot:${senderId}`,Date.now(),delay));return Math.max(0,next-Date.now());};
+export const markRateLimitNotification=async(senderId:string)=>{const d=new Date();const key=`rate-notified:${senderId}:${d.toISOString().slice(0,13)}`;return (await redisConnection.set(key,"1","EX",3700,"NX"))==="OK";};

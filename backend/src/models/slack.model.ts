@@ -1,0 +1,4 @@
+import { pool } from "../config/database";
+export const saveSlack=async(userId:string,teamId:string|null,token:string,channelId:string|null,webhookUrl:string|null)=>{await pool.query(`INSERT INTO slack_connections(user_id,team_id,access_token,channel_id,webhook_url,connected) VALUES($1,$2,$3,$4,$5,true) ON CONFLICT(user_id) DO UPDATE SET team_id=EXCLUDED.team_id,access_token=EXCLUDED.access_token,channel_id=EXCLUDED.channel_id,webhook_url=EXCLUDED.webhook_url,connected=true,updated_at=NOW()`,[userId,teamId,token,channelId,webhookUrl]);};
+export const getSlack=async(userId:string)=>{const r=await pool.query("SELECT * FROM slack_connections WHERE user_id=$1 AND connected=true",[userId]);return r.rows[0]??null;};
+export const disconnectSlack=async(userId:string)=>{await pool.query("UPDATE slack_connections SET connected=false,updated_at=NOW() WHERE user_id=$1",[userId]);};

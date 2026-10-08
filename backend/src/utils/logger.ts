@@ -1,0 +1,1 @@
+export const logger={info:(m:string,...a:unknown[])=>console.log(`[INFO] ${m}`,...a),warn:(m:string,...a:unknown[])=>console.warn(`[WARN] ${m}`,...a),error:(m:string,...a:unknown[])=>console.error(`[ERROR] ${m}`,...a)};
