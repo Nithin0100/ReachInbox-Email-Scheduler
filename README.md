@@ -138,3 +138,37 @@ ReachInbox-Email-Scheduler/
 │   └── tsconfig.json
 │
 └── README.md
+
+## How the Project Works
+
+ReachInbox follows a full-stack asynchronous email scheduling architecture. The frontend handles user interaction, the backend manages authentication and email scheduling, PostgreSQL stores application data, Redis and BullMQ handle background jobs, and the email worker sends messages through the Gmail API.
+
+### Overall Project Flow
+
+```text
+User
+  │
+  ▼
+React Frontend
+  │
+  ▼
+Google OAuth
+  │
+  ▼
+Express Backend
+  │
+  ├──────────────► PostgreSQL
+  │
+  └──────────────► BullMQ
+                      │
+                      ▼
+                    Redis
+                      │
+                      ▼
+                 Email Worker
+                      │
+                      ▼
+                  Gmail API
+                      │
+                      ▼
+                  Recipient
